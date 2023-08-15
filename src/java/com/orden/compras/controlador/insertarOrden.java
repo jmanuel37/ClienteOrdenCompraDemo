@@ -85,7 +85,7 @@ public class insertarOrden implements Serializable {
         return "crearOrdenes";
     }
 
-    public String crearOrden() throws Exception {
+    public void crearOrden() throws Exception {
         ordeCompra.setIdOrdCompra(idOrden);
         ordeCompra.setIdCliente(idCliente);
         ordeCompra.setFecha(fecha);
@@ -107,7 +107,7 @@ public class insertarOrden implements Serializable {
          System.out.println("jsonRsp"+jsonRsp);
         //String msj=ordenDao.addOrdeCompra(ordeCompra);  
 
-        return "Orden Guardad";
+        //return "Orden Guardad";
     }
 
     private LinkedList<OdenCompraDetaDto> datos = new LinkedList<OdenCompraDetaDto>();
