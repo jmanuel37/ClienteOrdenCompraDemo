@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+         <title>Mantenimiento Clientes</title>
+         <script type="text/javascript" language="javascript">
+		
+            //function tableClick(this.per){ carga la pagina de una ves 
+            // para Ie
+            function tableClick(per){
+               // alert("Entro a la funcion");
+              this.per;
+              window.load();
+
+            }
+            
+            function limpiarTable(){
+                //alert("Entro a la funcion");
+                document.getElementById('txtCodigo').value="";
+                document.getElementById('txtNombre').value="";
+                document.getElementById('txtDescripcion').value="";
+                
+
+            }
+
+
+       </script>
+    </h:head>
+    
+    <h:body>
+        
+        <center>
+        <h1> Mantenimiento de Cliente Clientes  </h1>
+        </center>
+       
+     
+         
+         <h:form id="formInsertar">
+             <br></br> <h:commandButton action = "index.xhtml?faces-redirect=true"   
+                                     value="Ver Ordenes Compra" class="btn btn-success"></h:commandButton> 
+             <p:growl         />
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Codigo de Producto"/>
+                <p:inputText id="txtCodigo"  value="#{mantenimientoCliente.clientForm.idCliente}"/>
+                 
+                <p:outputLabel value="Nombre"/>
+                <p:inputText id="txtNombre" value="#{mantenimientoCliente.clientForm.nombreCliente}"/>
+                          
+                <p:outputLabel value="Descripcion"/>
+                <p:inputText id="txtDescripcion" value="#{mantenimientoCliente.clientForm.descripcionCliente}"/>   
+                
+               
+            </p:panelGrid>          
+             <p:commandButton actionListener="#{mantenimientoCliente.create()}" value="Ingresar Cliente" update=":formMostrar" ajax="false" onclick="limpiarTable();"/>
+             <p:commandButton value="Modificar" actionListener="#{mantenimientoCliente.update()}"
+                                     update=":formMostrar" ajax="false" />   
+             <p:commandButton value="Eliminar" actionListener="#{mantenimientoCliente.delete()}"
+                                     update=":formMostrar" ajax="false"/>
+            
+          
+                   
+            
+        </h:form>
+        
+        
+        <h:form id="formMostrar">
+            <p:dataTable var="cli" value="#{mantenimientoCliente.listaClientes}"
+                         emptyMessage="No hay Clientes disponibles"
+                         paginator="true" rows="10" paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                         {PageLlinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10">
+            
+                <p:column headerText="Codigo Cliente">
+                    <h:outputText value="#{cli.idCliente}"/>
+                </p:column>
+                
+                 <p:column headerText="Nombre">
+                     <h:outputText value="#{cli.nombreCliente}"/>
+                </p:column>
+                
+                 <p:column headerText="Descripcion">
+                     <h:outputText value="#{cli.descripcionCliente}"/>
+                </p:column>
+
+                 <p:column headerText="Opcion">
+                     <p:commandButton value="Seleccionar" onclick="tableClick('${this.cli}');">
+                         <f:setPropertyActionListener target="#{mantenimientoCliente.clientForm}" value="#{cli}"/>
+                     </p:commandButton>
+                </p:column>
+                
+               
+            
+            </p:dataTable>
+              </h:form>
+        <br>
+            
+        </br>
+        
+         <p:dialog id="dlg2" header="Eliminar Producto"
+                      showEffect="explode" hideEffect="explode" widgetVar="dlgeliminar"
+                modal="true" resizable="false" minWidth="200">
+                <h:form id="formElimminar">
+                    <h:outputText value="¿ Desea eliminar ?"/>
+                    <!--p:commandButton value="si" actionListener="{personaBean.eliminarP(per.idpersona)}"
+                                     update=":formMostrar" oncomplete="dlgeliminar.hide();"/-->
+                    <p:commandButton value="si" actionListener="#{mantenimientoCliente.delete()}"
+                                     update=":formMostrar" oncomplete="dlgeliminar.hide();"/>
+                    <p:commandButton value="No" actionListener="#{mantenimientoCliente.limpiar()}" onclick="dlg2.hide();"/>
+                </h:form>
+            </p:dialog>
+        
+    </h:body>
+</html>
+

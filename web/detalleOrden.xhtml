@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet name="/css/bootstrap.min.css"/>  
+        <title>Detalle Orden</title>  
+
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even){
+                background-color: #f2f2f2
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>  
+    </h:head>  
+    <h:body>  
+        <h:form id="form" class="form-horizontal">  
+            <center>  
+                <h2><h:outputText value="Detalle Orden Compra"/></h2>  
+            </center>  
+
+            <p:panelGrid columns="2"  columnClasses="className" styleClass="ui-panelgrid-blank ui-fluid" >
+                <p:outputLabel value="ID Orden" for="idOrden"  />
+                <p:outputLabel id="idOrden" value="#{ordenCompras.idOrden}"   styleClass="textinput2" />
+
+                <p:outputLabel value="ID Cliente" for="idCliente" />
+                <p:outputLabel id="idCliente" value="#{ordenCompras.idCliente}"   styleClass="textinput2" />
+
+                <p:outputLabel value="Fecha " for="fecha" />
+                <p:outputLabel id="fecha" value="#{ordenCompras.fechaAux}"   styleClass="textinput2" >
+                    
+                </p:outputLabel>
+
+                <p:outputLabel value="Total " for="totalord" />
+                <p:outputLabel id="totalord" value="#{ordenCompras.totalord}"   styleClass="textinput2" />
+
+                <p:spacer />
+                <p:spacer />
+            </p:panelGrid>
+
+            <p:dataTable id="cars2" var="det" value="#{ordenCompras.detaCompras}" editable="true" editMode="cell" widgetVar="cellCars" 
+                         rowIndexVar="rowIndex"
+                         rowKey="#{det.orderDetaId}"
+                         selectionMode="single"
+                         styleClass="borderless"
+                         >
+                <f:facet name="header">
+                    Detalle De La Orden
+                </f:facet>
+                <p:column headerText="ID Codigo Deta"  width="0.8%">
+                    <h:outputText value="#{det.orderDetaId}" />
+                </p:column>
+
+                <p:column headerText="Orden Compra"  width="0.8%">
+                    <h:outputText value="#{det.ordenPedidoId}" />
+                </p:column>  
+                <p:column headerText="Codigo Producto"  width="0.8%">
+                    <h:outputText value="#{det.idProducto}" />
+                </p:column>
+                <p:column headerText="Nombre Producto"  width="0.8%">
+                    <h:outputText value="#{det.nombreProd}" />
+                </p:column>
+                <p:column headerText="Precio"  width="0.8%">
+                    <h:outputText value="#{det.precioProducto}" />
+                </p:column>
+                <p:column headerText="Descripcion"  width="0.8%">
+                    <h:outputText value="#{det.descProd}" />
+                </p:column>
+
+            </p:dataTable>
+            <center><h:commandButton action = "index.xhtml?faces-redirect=true"   
+                                     value="Ordenes de Compra" class="btn btn-success"></h:commandButton></center>  
+        </h:form>  
+    </h:body>  
+</html>  
+

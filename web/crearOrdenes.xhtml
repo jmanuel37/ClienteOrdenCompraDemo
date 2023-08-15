@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
+        <title>Crear Ordenes Compra </title>  
+
+
+    </h:head>
+    <h:body>
+        <center>  
+            <h2><h:outputText value="Crear Orden Compra"/></h2>  
+        </center>
+        <h:form id="formu">
+
+            <!-- p:growl id="msgs" showDetail="true" /-->
+            <p:growl id="growl" sticky="true" showDetail="true" life="5000"
+                     class="ui-growl"></p:growl>
+
+            <center>  
+                <h2><h:outputText value="Encabezado de la Orden"/></h2>  
+            </center>
+            <center> 
+                <p:panelGrid columns="2"  columnClasses="className" styleClass="ui-panelgrid-blank ui-fluid">
+                    <p:outputLabel value="ID Orden" for="idOrden" />
+                    <p:inputText id="idOrden" value="#{insertarOrden.idOrden}"  required="false" styleClass="textinput2" />
+
+
+                    <p:outputLabel value="ID Clienet" for="idCliente" />
+                    <p:inputText id="idCliente" value="#{insertarOrden.idCliente}"  required="false" styleClass="textinput2" />
+
+
+                    <p:outputLabel value="Total Pago" for="totalord" />
+                    <p:inputText id="totalord" value="#{insertarOrden.totalord}"  required="false" styleClass="textinput2" />
+
+                    <p:spacer />
+                    <p:spacer />
+                </p:panelGrid> 
+
+
+                <h2><h:outputText value="Detalle de la Order"/></h2>  
+            </center>
+            <center> 
+                <p:panelGrid columns="2"  columnClasses="className" styleClass="ui-panelgrid-blank ui-fluid">
+                    <p:outputLabel value="ID Detalle" for="orderDetaId" />
+                    <p:inputText id="orderDetaId" value="#{insertarOrden.orderDetaId}"  required="false" styleClass="textinput2" />
+
+
+                    <p:outputLabel value="ID Producto" for="idProducto" />
+                    <p:inputText id="idProducto" value="#{insertarOrden.idProducto}"  required="false" styleClass="textinput2" />
+
+
+                    <p:outputLabel value="Nombre Producto" for="nombreProd" />
+                    <p:inputText id="nombreProd" value="#{insertarOrden.nombreProd}"  required="false" styleClass="textinput2" />
+
+
+                    <p:outputLabel value="Precio" for="precioProducto" />
+                    <p:inputText id="precioProducto" value="#{insertarOrden.precioProducto}"  required="false" styleClass="textinput2" />
+
+                    <p:outputLabel value="Cantidad" for="cantProducto" />               
+                    <p:inputText id="cantProducto" value="#{insertarOrden.cantProducto}"  required="false" styleClass="textinput2" />
+
+                    <p:outputLabel value=" Descripcion" for="descProd" />               
+                    <p:inputText id="descProd" value="#{insertarOrden.descProd}"  required="false" styleClass="textinput2" />
+                    <p:spacer />
+                    <p:spacer />
+
+                    <p:commandButton value="AgregarDetalle" id="ajax" update="formu:cars2" action="#{insertarOrden.llenarDetalle}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+                </p:panelGrid>  
+                
+                <p:dataTable id="cars2" var="det" value="#{insertarOrden.ordeDetaCompraList}" editable="true" editMode="cell" widgetVar="cellCars" 
+                             rowIndexVar="rowIndex"
+                             rowKey="#{det.orderDetaId}"
+                             selectionMode="single"
+                             styleClass="borderless"
+                             >
+                    <f:facet name="header">
+                        Detalle De La Orden
+                    </f:facet>
+                    <p:column headerText="ID Codigo Deta"  width="0.8%">
+                        <h:outputText value="#{det.orderDetaId}" />
+                    </p:column>
+
+                    <p:column headerText="Orden Compra"  width="0.8%">
+                        <h:outputText value="#{det.ordenPedidoId}" />
+                    </p:column>  
+                    <p:column headerText="Codigo Producto"  width="0.8%">
+                        <h:outputText value="#{det.idProducto}" />
+                    </p:column>
+                    <p:column headerText="Nombre Producto"  width="0.8%">
+                        <h:outputText value="#{det.nombreProd}" />
+                    </p:column>
+                    <p:column headerText="Precio"  width="0.8%">
+                        <h:outputText value="#{det.precioProducto}" />
+                    </p:column>
+                    <p:column headerText="Descripcion"  width="0.8%">
+                        <h:outputText value="#{det.descProd}" />
+                    </p:column>
+
+                </p:dataTable>
+
+
+                <div class="opcioncontra">
+                    <h:commandLink action="#{insertarOrden.crearOrden()}" value="Insertar Orden" />
+                </div>
+
+                <center><h:commandButton action = "index.xhtml?faces-redirect=true"   
+                                         value="Ordenes de Compra" class="btn btn-success"></h:commandButton></center>  
+            </center>
+        </h:form>
+    </h:body>
+</html>
+
